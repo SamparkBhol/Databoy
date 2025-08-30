@@ -1,0 +1,181 @@
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;700&family=Orbitron:wght@400;700;900&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --vscode-bg: #1e1e1e;
+  --vscode-text: #d4d4d4;
+  --vscode-blue: #569cd6;
+  --vscode-green: #4ec9b0;
+  --vscode-yellow: #dcdcaa;
+  --vscode-red: #f44747;
+  --vscode-purple: #c586c0;
+  --vscode-orange: #ce9178;
+  --vscode-border: #3c3c3c;
+  --vscode-panel-bg: #252526;
+  --vscode-input-bg: #3c3c3c;
+}
+
+body {
+  @apply bg-vscode-bg text-vscode-text;
+  font-family: 'Fira Code', monospace;
+  overflow-x: hidden;
+}
+
+.pixel-font {
+  font-family: 'Orbitron', monospace;
+  font-weight: 700;
+  text-shadow: 0 0 2px var(--vscode-green);
+}
+
+.vscode-border {
+  border: 1px solid var(--vscode-border);
+}
+
+.crt-effect {
+  position: relative;
+  overflow: hidden;
+}
+
+.crt-effect::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    transparent 50%,
+    rgba(78, 201, 176, 0.02) 50%
+  );
+  background-size: 100% 3px;
+  pointer-events: none;
+  z-index: 1;
+  animation: flicker 0.15s infinite;
+}
+
+.terminal-glow {
+  text-shadow: 0 0 5px var(--vscode-green);
+}
+
+.retro-button {
+  @apply px-4 py-2 border border-vscode-border bg-vscode-input-bg text-vscode-text font-mono;
+  transition: all 0.2s ease;
+}
+
+.retro-button:hover:not(:disabled) {
+  @apply bg-vscode-green text-vscode-bg;
+  border-color: var(--vscode-green);
+}
+
+.retro-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.ascii-art {
+  font-family: 'Fira Code', monospace;
+  font-size: 0.8rem;
+  line-height: 1;
+  white-space: pre;
+  color: var(--vscode-green);
+}
+
+.loading-dots::after {
+  content: '';
+  animation: dots 1.5s infinite;
+}
+
+@keyframes dots {
+  0%, 20% { content: ''; }
+  40% { content: '.'; }
+  60% { content: '..'; }
+  80%, 100% { content: '...'; }
+}
+
+.flicker {
+  animation: flicker 0.15s infinite linear;
+}
+
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.95; }
+}
+
+.console-output {
+  background: rgba(30, 30, 30, 0.9);
+  border: 1px solid var(--vscode-border);
+  font-family: 'Fira Code', monospace;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: var(--vscode-text);
+}
+
+.retro-card {
+  background-color: var(--vscode-panel-bg);
+  border: 1px solid var(--vscode-border);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.matrix-bg {
+  background-image: 
+    radial-gradient(circle at 25% 25%, rgba(78, 201, 176, 0.03) 0%, transparent 50%),
+    radial-gradient(circle at 75% 75%, rgba(86, 156, 214, 0.02) 0%, transparent 50%);
+}
+
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.progress-bar {
+  background: linear-gradient(90deg, 
+    var(--vscode-green) 0%, 
+    var(--vscode-green) var(--progress, 0%), 
+    var(--vscode-input-bg) var(--progress, 0%)
+  );
+  border: 1px solid var(--vscode-border);
+  height: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.progress-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(90deg, 
+    transparent 0%, 
+    rgba(255, 255, 255, 0.1) 50%, 
+    transparent 100%
+  );
+  animation: shimmer 2s infinite;
+}
+
+@keyframes shimmer {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(100%); }
+}
+
+.vscode-tab {
+  @apply px-4 py-2 text-sm font-medium cursor-pointer border-b-2;
+  border-color: transparent;
+  color: var(--vscode-text);
+  opacity: 0.7;
+  transition: all 0.2s ease;
+}
+
+.vscode-tab.active {
+  border-color: var(--vscode-blue);
+  background-color: var(--vscode-panel-bg);
+  opacity: 1;
+}
+
+.vscode-tab:hover:not(.active) {
+  background-color: rgba(255, 255, 255, 0.05);
+}
